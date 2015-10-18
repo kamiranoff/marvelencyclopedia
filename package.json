@@ -1,0 +1,106 @@
+{
+  "name": "marvel-encyclopedia",
+  "version": "0.0.1",
+  "browserify": {
+    "transform": [
+      "hbsfy"
+    ]
+  },
+  "dependencies": {
+    "jquery": "~2.1.3",
+    "normalize.css": "~3.0.1",
+    "backbone": "^1.2.3",
+    "handlebars": "*",
+    "knacss": "^4.3.3",
+    "lodash": "^3.2.0",
+    "body-parser": "*",
+    "errorhandler": "^1.3.5",
+    "express": "*",
+    "jade": "^1.9.2",
+    "log4js": "*",
+    "mongodb": "*",
+    "morgan": "*",
+    "serve-favicon": "*",
+    "socket.io": "*",
+    "util": "*",
+    "validator": " *",
+    "wiredep": "*",
+    "mongoose": "*"
+  },
+  "devDependencies": {
+    "autoprefixer-core": "~5.2.0",
+    "babel-core": "~5.6.15",
+    "babel-eslint": "~4.0.0",
+    "babelify": "~6.0.2",
+    "browser-sync": "~2.7.12",
+    "browserify": "~10.0.0",
+    "chai": "*",
+    "del": "~1.2.0",
+    "envify": "~3.4.0",
+    "express-debug": "^1.1.1",
+    "foldero": "~0.1.1",
+    "glob": "~5.0.10",
+    "gulp": "~3.9.0",
+    "gulp-changed": "~1.2.1",
+    "gulp-data": "~1.2.0",
+    "gulp-eslint": "~0.14.0",
+    "gulp-htmlmin": "~1.1.3",
+    "gulp-if": "~1.2.5",
+    "gulp-imagemin": "~2.2.1",
+    "gulp-jade": "~1.0.1",
+    "gulp-load-plugins": "~0.10.0",
+    "gulp-newer": "~0.5.1",
+    "gulp-nodemon": "^2.0.4",
+    "gulp-plumber": "~1.0.1",
+    "gulp-postcss": "~5.1.8",
+    "gulp-rename": "~1.2.2",
+    "gulp-sass": "~2.0.1",
+    "gulp-sourcemaps": "~1.5.2",
+    "gulp-uglify": "~1.2.0",
+    "gulp-util": "~3.0.5",
+    "imagemin-pngquant": "~4.0.0",
+    "imagemin-svgo": "~4.0.0",
+    "karma": "~0.12.21",
+    "karma-browserify": "~4.2.1",
+    "karma-chai": "~0.1.0",
+    "karma-mocha": "~0.1.3",
+    "karma-phantomjs-launcher": "~0.1.2",
+    "minimist": "~1.1.1",
+    "mocha": "*",
+    "rimraf": "~2.2.0",
+    "vinyl-buffer": "~1.0.0",
+    "vinyl-source-stream": "~1.1.0",
+    "watchify": "~3.3.0 ",
+    "wrench": "~1.5.8",
+    "hbsfy": "*"
+  },
+  "scripts": {
+    "clean-deps": "rimraf node_modules"
+  },
+  "engines": {
+    "node": ">=0.12.0"
+  },
+  "//": "CUSTOM CONFIGURATION",
+  "config": {
+    "//": "Entry files",
+    "host": "127.0.0.1",
+    "port": "3000",
+    "baseUrl": "./",
+    "directories": {
+      "source": "src",
+      "destination": "build",
+      "temporary": "tmp",
+      "//": "Directories relative to `source` directory",
+      "modules": "_modules",
+      "layouts": "_layouts",
+      "images": "_images",
+      "styles": "_styles",
+      "scripts": "_scripts",
+      "data": "_data"
+    },
+    "entries": {
+      "js": "main**.js",
+      "css": "main**.{sass,scss}"
+    }
+  }
+}
