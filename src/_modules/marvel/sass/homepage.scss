@@ -1,0 +1,15 @@
+.characters-list {
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  .single-hero-link {
+    padding: 20px;
+    text-align: center;
+    img {
+      height: 200px;
+      width: 200px;
+    }
+    h2 {}
+  }
+}

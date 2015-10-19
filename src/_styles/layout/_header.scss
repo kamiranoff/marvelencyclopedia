@@ -1,0 +1,17 @@
+.title{
+  text-align: center;
+  font-size: 3rem;
+  padding: 15px;
+  font-weight: bold;
+  .marvel{
+    display:inline-block;
+    width: 125px;
+    text-indent: -9999px;
+    background-image:url('../images/marvel-logo.jpg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    &:hover{
+
+    }
+  }
+}

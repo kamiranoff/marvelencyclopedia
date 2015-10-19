@@ -23,7 +23,7 @@ MarvelApi.get('/', function(req, res, next) {
     }else{
       res.json(characters);
     }
-  }).limit(5);
+  }).limit(10);
 
 
 

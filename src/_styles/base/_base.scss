@@ -1,0 +1,25 @@
+body{
+  background-color: $background-primary;
+  font-family: Oxygen;
+  font-weight: regular;
+  font-size: 16px;
+  max-width: 100%;
+}
+
+
+h1{
+  color:$darkblue;
+  font-family: Oxygen;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+ul,li{
+  list-style: none;
+}
+
+a{
+  color:$blue;
+  text-decoration: none;
+
+}

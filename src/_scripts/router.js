@@ -3,7 +3,6 @@
 var Backbone = require('backbone');
 var $ = require('jquery');
 var Homepage = require('../_modules/marvel/views/homepage-view');
-var MarvelCollection = require('../_modules/marvel/collections/marvelapi-collection');
 
 var ApplicationRouter = Backbone.Router.extend({
     routes: {
@@ -18,8 +17,7 @@ var ApplicationRouter = Backbone.Router.extend({
 
     index: function() {
       console.log('ROUTER - INDEX - Router has been initiated');
-      var marvelCollection = new MarvelCollection();
-      new Homepage({collection: marvelCollection});
+      var homepage =new Homepage();
     },
     show: function() {
       console.log('show route');

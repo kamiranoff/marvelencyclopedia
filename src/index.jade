@@ -1,13 +1,11 @@
 extends _layouts/base
 
-include _modules/link/link
-
 block content
-  .container
-    .yeogurt-info
-      h1 Welcome to Marvel Encyclopedia!
-      //- p.
-      //-   Take a look at the
-      //-   #[+link({href:'https://github.com/larsonjj/generator-yeogurt#yeogurt-generator---', text: 'documentation'})]
-      //-   and start mixing up something awesome.
-      include _modules/marvel/marvel
+  h1.title Welcome to the&nbsp;
+    span.marvel Marvel
+    |&nbsp;Encyclopedia!
+  //- p.
+  //-   Take a look at the
+  //-   #[+link({href:'https://github.com/larsonjj/generator-yeogurt#yeogurt-generator---', text: 'documentation'})]
+  //-   and start mixing up something awesome.
+  include _modules/marvel/marvel

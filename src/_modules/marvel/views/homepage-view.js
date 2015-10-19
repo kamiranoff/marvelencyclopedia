@@ -4,24 +4,8 @@ var $ = require('jquery');
 var _ = require('lodash');
 var Backbone = require('backbone');
 var tpl = require('../templates/homepage.hbs');
-
-var HeroView = Backbone.View.extend({
-  tagName: 'li',
-
-  template: _.template('<p><%= name %></p>'),
-
-  initialize: function() {
-    this.render();
-  },
-
-  render: function() {
-    console.log(this.model);
-    this.$el.html(this.template(this.model.get('character')));
-    console.log(this.$el.html(this.template(this.model.get('character'))));
-    return this;
-
-  }
-});
+var HeroesView = require('./characters-list-view.js');
+var MarvelCollection = require('../collections/marvelapi-collection');
 
 module.exports = Backbone.View.extend({
   el: '.marvel-app',
@@ -32,31 +16,16 @@ module.exports = Backbone.View.extend({
 
   initialize: function(options) {
     console.log("homepage - initialize");
-    this.fetchData();
-    this.listenTo(this.collection, 'sync', this.render);
-
+    this.render();
   },
   render: function() {
-    var self = this;
-    console.log(this.collection);
-    this.collection.each(function(character) {
-      console.log('character', character);
-
-      var hero = new HeroView({
-        model: character
-      });
-      self.$el.append(hero.el);
-
+    var marvelCollection = new MarvelCollection();
+    var heroes = new HeroesView({
+      collection: marvelCollection
     });
 
+    this.$el.append(heroes.$el);
 
-   //this.$el.html(this.template());
-  },
-
-  fetchData: function() {
-    console.log('HomepageView - fetchData - fetching data');
-    this.collection.fetch({
-      wait: true
-    });
+    //this.$el.html(this.template());
   }
 });

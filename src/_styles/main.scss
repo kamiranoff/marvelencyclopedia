@@ -1,43 +1,36 @@
 // Normalize Styles
 @import 'node_modules/normalize.css/normalize';
+@import 'helpers/colors';
 
-// Import Modules
-@import '../_modules/link/link';
+/*============================
+=            BASE            =
+============================*/
 
-// Box sizing partial styles:
-// Apply a natural box layout model to all elements
-*,
-*:before,
-*:after {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
+@import 'base/base';
+@import 'base/typography';
 
-.yeogurt-info {
-  text-align: center;
-  max-width: 500px;
-  margin-left: auto;
-  margin-right: auto;
-}
+/*=====  End of BASE  ======*/
 
-.version {
-  font-size: 14px;
-  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-}
 
-.logo {
-  margin-top: 15px;
-}
+/*==============================
+=            layout            =
+==============================*/
 
-// Styling on warning for users on IE7 or below
-.browsehappy {
-  text-align: center;
-  margin: 0;
-  background: #fff8e2;
-  color: #000;
-  padding: 0.5em 0;
-}
+@import 'layout/header';
+
+/*=====  End of layout  ======*/
+
+
+/*===============================
+=            MODULES            =
+===============================*/
+
+/*----------  MARVEL  ----------*/
+
+@import '../_modules/marvel/sass/homepage';
+
+/*----------  END MARVEL  ----------*/
+
+
+
+/*=====  End of MODULES  ======*/
