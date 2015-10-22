@@ -95,10 +95,12 @@ module.exports = function(app, configEnv) {
 
   if ('development' === env || 'test' === env) {
     app.use(express.static(path.join(configEnv.rootPath, 'tmp')));
-    app.use('/bower_components', express.static(path.join(configEnv.rootPath, '/bower_components')));
+    //app.use('/bower_components', express.static(path.join(configEnv.rootPath, '/bower_components')));
     require('express-debug')(app, {});
     console.log('config.js - Root: ' + configEnv.rootPath);
 
+
+    app.enable('verbose errors');
     app.set('appPath', 'tmp');
     app.use(morgan('dev'));
     app.use(errorhandler({

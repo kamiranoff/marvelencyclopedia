@@ -67,15 +67,16 @@ module.exports = function(app) {
   // would remain being executed, however here
   // we simply respond with an error page.
 
-  app.use(function(err, req, res, next) {
-    // we may use properties of the error object
-    // here and next(err) appropriately, or if
-    // we possibly recovered from the error, simply next().
-    res.status(err.status || 500);
-    res.render('500', {
-      error: err
-    });
-  });
+  // app.use(function(err, req, res, next) {
+  //   // we may use properties of the error object
+  //   // here and next(err) appropriately, or if
+  //   // we possibly recovered from the error, simply next().
+  //   res.status(err.status || 500);
+  //   console.log(err);
+  //   res.render('500', {
+  //     error: err
+  //   });
+  // });
 
 
 };

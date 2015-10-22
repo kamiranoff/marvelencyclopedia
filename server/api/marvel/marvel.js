@@ -17,16 +17,31 @@ MarvelApi.get('/', function(req, res, next) {
     query._id = req.query._id;
   }
 
-  Character.find(query,function(err,characters){
-    if(err){
-     res.status(500).send(err);
-    }else{
-      res.json(characters);
-    }
-  }).limit(10);
+ // var characterList = Character.find(query,function(err,characters){
+ //    var filteredChar = {};
+ //    if(err){
+ //     res.status(500).send(err);
+ //    }else{
+
+ //     // console.log(characters);
+ //      //console.log( JSON.stringify(characters));
+ //      // filteredChar = {
+ //      //   name : characters[0].character.name,
+ //      //   thumbnail:characters[0].character.thumbnail,
+ //      //   id:characters[0]._id
+ //      //  // wiki:characters[0].character.wiki
+ //      // };
 
 
+ //      console.log(characters);
+ //      res.json(characters);
 
+ //    }
+ //  }).limit(2).sort( { name: 1 } );
+
+  var characterList = Character.find({},'character.thumbnail character.name',function(err,characters){
+    res.json(characters);
+  }).limit(25);
 
 });
 
