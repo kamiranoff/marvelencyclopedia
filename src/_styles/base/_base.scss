@@ -29,10 +29,11 @@ body {
   max-width: 100%;
 }
 
-h1 {
-  font-family: Oxygen;
-  font-weight: bold;
+h1,h2 {
+  font-family: 'League Gothic','Oxygen',sans-serif;
+  font-weight: normal;
   text-transform: uppercase;
+  letter-spacing: 3px;
 }
 
 p {
@@ -66,8 +67,6 @@ hr {
   .marvel-app {
     @include bg-text-alt(1);
     color: $text;
-    padding-top: 1px;
-    width: calc(100%/12 * 10);
     margin: 0 auto;
   }
 }

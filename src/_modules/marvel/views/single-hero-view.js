@@ -41,15 +41,22 @@ module.exports = Backbone.View.extend({
     console.log('beforeRender');
   },
 
+  setParallaxBg: function() {
+    var parallax = $('.hero-name')[0];
+    var speed = -0.3;
+    window.onscroll = function() {
+      var yOffset = window.pageYOffset;
+      var percentOffset = 30 - (yOffset / speed)/100;
+      parallax.style.backgroundPosition = "0px " + percentOffset + "%";
+    };
+  },
+
 
   afterRender: function() {
     var _this = this;
     console.log('afterRender');
     $(document).scrollTop(0);
-    $('.main-hero-image img').on('load', function() {
-      var color = _this.getColorFromPic('.main-hero-image img', '.hero-description-wiki-text');
-      _this.$el.find('.hero-name').css('border-bottom', '3px solid' + color);
-    });
+    this.setParallaxBg();
 
 
   },
@@ -59,22 +66,6 @@ module.exports = Backbone.View.extend({
     this.$el.html(this.template(this.updatedModel()));
     return this;
   },
-
-  getColorFromPic: function(img, targetEl) {
-    var currentElement, vibrant, swatch, vibrantColorHex, $targetEl;
-
-    currentElement = $(img)[0];
-    currentElement.crossOrigin = "Anonymous";
-    currentElement.crossorigin = "anonymous";
-
-    vibrant = new Vibrant(currentElement);
-    swatch = vibrant.swatches();
-    vibrantColorHex = swatch.Vibrant.getHex();
-    return vibrantColorHex;
-
-
-  },
-
   // show: function(id) {
   //   console.log('Single-hero-view - show - showing the hero with the id ', id);
   // },

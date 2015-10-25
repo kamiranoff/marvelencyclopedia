@@ -5,11 +5,42 @@
   font-weight: bold;
   background-color: $background-secondary;
   margin: 0em;
+  position: relative;
+  height: 160px;
+  overflow: hidden;
+  .overlay {
+    position: absolute;
+    padding: 3rem;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    letter-spacing: .5rem;
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+  a {
+    color: $text-alt;
+  }
   @include medium-only {
-    font-size: 5rem;
+    font-size: 6rem;
+    height: 227px;
   }
   @include large-only {
-    font-size: 7rem;
+    font-size: 8.5rem;
+    height: 312px;
+    .overlay {
+      position: absolute;
+      padding: 6rem;
+    }
+  }
+  @include very-large-only {
+    font-size: 8.5rem;
+    height: 342px;
+    .overlay {
+      position: absolute;
+      padding: 6rem;
+    }
   }
   &:hover {
     .subtitle {
@@ -28,7 +59,7 @@
       width: 153px;
     }
     @include large-only {
-      width: 253px;
+      width: 220px;
     }
     &:hover {}
   }
@@ -41,22 +72,41 @@
       line-height: 0px;
     }
   }
+  .video {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 0;
+  }
 }
 
 [data-page="single-page"] {
   .title {
     margin: 0;
-    font-size: 2rem;
-    padding: 2rem 0;
+    text-align: left;
+    height:auto;
+    padding: 1rem 1rem;
     &:before,
     &:after {
       content: ' ';
       display: table;
     }
+    .overlay {
+      position: static;
+      font-size: 2rem;
+      padding:0;
+    }
+    .video {
+      display: none;
+    }
     .subtitle {
-      line-height: 1.5rem;
+      line-height: 2rem;
       font-size: 1rem;
       margin: 0;
+      text-align: left;
     }
   }
   .marvel {

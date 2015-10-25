@@ -1,4 +1,11 @@
-<h1 class="hero-name">{{character.name}}</h1>
+<style type="text/css" media="screen">
+.hero-name{
+  background-image:url('{{character.thumbnail.path}}.{{character.thumbnail.extension}}');
+}
+</style>
+
+
+  <h1 class="hero-name"><span class="hero-name-text">{{character.name}}</span></h1>
 <section class="hero-description">
 <section class="hero-description-wiki">
   <div class="main-hero-image"><img src="{{character.thumbnail.path}}.{{character.thumbnail.extension}}"></div>
@@ -16,7 +23,10 @@
      <p><strong>Education: </strong>{{character.wiki.education}}</p>
   </div>
 </section>
-  <h1>{{character.description}}</h1>
+  <h2 class="description-summary">
+    <hr class="divider">{{character.description}}
+    <hr class="divider">
+  </h2>
 
 <section class="layout-single-column">
   <p><strong>DESC</strong>:{{character.wiki.bio}}</p>

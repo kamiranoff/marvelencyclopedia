@@ -9,6 +9,7 @@ var vibrant = require('../../../_scripts/vibrant-custom/vibrant.js');
 module.exports = Backbone.View.extend({
   tagName: 'div',
   className: 'characters-list',
+  vibrantColorHex: '',
 
   initialize: function(options) {
     console.log("Characters List View - initialize");
@@ -18,9 +19,6 @@ module.exports = Backbone.View.extend({
     $('.page').attr('data-page', 'homepage');
 
 
-
-  },
-  events: {
 
   },
   renderHelper: function() {
@@ -40,22 +38,22 @@ module.exports = Backbone.View.extend({
   },
 
   setBgColorToTitleFromPic: function(img, targetEl, commonParent) {
-    var currentElement, vibrant, swatch, vibrantColorHex, $targetEl;
+    var currentElement, vibrant, swatch, $targetEl;
     $(img).hover(function(e) {
       currentElement = e.currentTarget;
       currentElement.crossOrigin = "Anonymous";
 
       vibrant = new Vibrant(currentElement);
       swatch = vibrant.swatches();
-      vibrantColorHex = swatch.Vibrant.getHex();
+      this.vibrantColorHex = swatch.Vibrant.getHex();
 
       $targetEl = $(this).closest(commonParent).find(targetEl);
-      $targetEl.css('background', vibrantColorHex);
+      $targetEl.css('background', this.vibrantColorHex);
 
     }, function() {
       $targetEl.removeAttr('style');
       $targetEl.css({
-        'border-bottom': '2px solid ' + vibrantColorHex,
+        'border-bottom': '2px solid ' + this.vibrantColorHex,
         'padding-top': '8px'
       });
     });
@@ -63,13 +61,12 @@ module.exports = Backbone.View.extend({
 
   afterRender: function() {
     console.log('afterRender');
-
     this.setBgColorToTitleFromPic('.character-link img', '.name', '.single-hero-link');
-
 
   },
   render: function() {
     var self = this;
+
     this.collection.each(function(character) {
       var hero = new HeroView({
         model: character
@@ -77,17 +74,18 @@ module.exports = Backbone.View.extend({
       self.$el.append(hero.$el);
 
     });
+    //this.filterByTeam();
     return this;
-
-
-    //this.$el.html(this.template());
   },
-  renderSingle: function(elSingle) {
-    var self = this;
-    self.$el.html(elSingle);
 
-    //this.$el.html(this.template());
-  },
+  // filterByTeam:function(){
+  //   var collect = this.collection.filter(function(model){
+  //     console.log(_.indexOf('Avengers'));
+  //     return ( _.indexOf(model.get('character.wiki.categories'), "Avengers") >= 0 );
+  //   });
+  //   console.log('filterByTeam',collect);
+  // },
+
 
   fetchData: function() {
     console.log('HomepageView - fetchData - fetching data');

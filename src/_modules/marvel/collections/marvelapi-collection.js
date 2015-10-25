@@ -15,5 +15,12 @@ module.exports = Backbone.Collection.extend({
     console.log('Marvel Collection - Initialize');
   }
 
+   // byTeam: function (team) {
+   //      filtered = this.filter(function (character) {
+   //          return character.get("team") === team;
+   //      });
+   //      //return new Boxes(filtered);//This makes these filtering methods chainable (boxes.byColor("red").bySize("L"), for example).
+   //  }
+
 
 });
