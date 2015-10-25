@@ -23,7 +23,7 @@ module.exports = Backbone.View.extend({
   },
 
   render: function() {
-    console.log(this.updatedModel());
+   // console.log(this.updatedModel());
     this.$el.html(this.template(this.updatedModel()));
     return this;
   }

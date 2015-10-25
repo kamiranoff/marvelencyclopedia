@@ -23,9 +23,10 @@ head
     link(rel='stylesheet', href= baseUrl + 'styles/main.css')
 
 body
-  block content
+  .page
+    block content
 
-  block scripts
-    script(src= baseUrl + 'scripts/main.js')
+    block scripts
+      script(src= baseUrl + 'scripts/main.js')
 
 </html>

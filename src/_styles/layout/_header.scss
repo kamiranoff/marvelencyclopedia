@@ -1,17 +1,65 @@
-.title{
+.title {
   text-align: center;
   font-size: 3rem;
-  padding: 15px;
+  padding: 6rem 0;
   font-weight: bold;
-  .marvel{
-    display:inline-block;
-    width: 125px;
+  background-color: $background-secondary;
+  margin: 0em;
+  @include medium-only {
+    font-size: 5rem;
+  }
+  @include large-only {
+    font-size: 7rem;
+  }
+  &:hover {
+    .subtitle {
+      color: $marvel;
+    }
+  }
+  .marvel {
+    display: inline-block;
+    width: 94px;
     text-indent: -9999px;
-    background-image:url('../images/marvel-logo.jpg');
+    background-image: url('../images/marvel-logo.jpg');
     background-size: contain;
     background-repeat: no-repeat;
-    &:hover{
-
+    background-position: 50%;
+    @include medium-only {
+      width: 153px;
     }
+    @include large-only {
+      width: 253px;
+    }
+    &:hover {}
+  }
+  .subtitle {
+    transition: color 1s ease;
+    font-size: 1.3rem;
+    text-align: center;
+    @include large-only {
+      margin-top: 0px;
+      line-height: 0px;
+    }
+  }
+}
+
+[data-page="single-page"] {
+  .title {
+    margin: 0;
+    font-size: 2rem;
+    padding: 2rem 0;
+    &:before,
+    &:after {
+      content: ' ';
+      display: table;
+    }
+    .subtitle {
+      line-height: 1.5rem;
+      font-size: 1rem;
+      margin: 0;
+    }
+  }
+  .marvel {
+    width: 80px;
   }
 }

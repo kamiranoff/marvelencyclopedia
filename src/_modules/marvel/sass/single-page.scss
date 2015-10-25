@@ -1,0 +1,30 @@
+[data-page="single-page"] {
+  .hero-name {
+    @extend %card-style;
+    text-align: center;
+    padding: 3rem 0;
+    margin: 2rem auto;
+    border-bottom: 1px solid #ccc;
+  }
+  .hero-description-wiki {
+    width: 100%;
+    &:after {
+      @extend %clearfix;
+    }
+  }
+  .main-hero-image {
+    width: 33.3%;
+    padding:0 10px 0 0;
+    float: left;
+    text-align: center;
+    img {
+      width: 100%;
+    }
+  }
+  .hero-description-wiki-text {
+    @extend %card-style;
+    padding: 1em;
+    width: 66.6%;
+    float: left;
+  }
+}

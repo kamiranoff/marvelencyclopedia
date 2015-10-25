@@ -41,11 +41,11 @@ MarvelApi.get('/', function(req, res, next) {
 
   var characterList = Character.find({},'character.thumbnail character.name',function(err,characters){
     res.json(characters);
-  }).limit(25);
+  }).limit(325);
 
 });
 
-MarvelApi.get('/id/:characterId', function(req, res, next) {
+MarvelApi.get('/:characterId', function(req, res, next) {
 
 
   Character.findById(req.params.characterId,function(err,results){

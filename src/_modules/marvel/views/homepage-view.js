@@ -24,7 +24,7 @@ module.exports = Backbone.View.extend({
       collection: marvelCollection
     });
 
-    this.$el.append(heroes.$el);
+    this.$el.html(heroes.$el);
 
     //this.$el.html(this.template());
   }
