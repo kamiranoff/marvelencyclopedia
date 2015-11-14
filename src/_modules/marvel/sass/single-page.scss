@@ -14,7 +14,7 @@
     text-stroke: 1px solid #000;
      background-position: center 30%;
     @include large-plus{
-      background-position: center center !important;
+     // background-position: center center !important;
     }
     @include small-plus{
       font-size:6rem;
