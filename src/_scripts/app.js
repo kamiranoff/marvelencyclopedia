@@ -17,12 +17,13 @@ var ApplicationView = PageView.extend({
     //set dependency on ApplicationRouter
     this.router = new ApplicationRouter();
     //call to begin monitoring uri and route changes
-    Backbone.history.start();
+    Backbone.history.start({pushState: true });
     // A global a.onclick event handler for all your navigational needs
     // see e.g. Backbone Boilerplate for a more complete example
 
   },
-  render: function() {}
+  render: function() {
+  }
     // singleCharDisplay: function(e) {
     //   // e.preventDefault();
     //   console.log(e.currentTarget);

@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "backbone": "^1.2.3",
+    "backbone.marionette": "^2.4.3",
     "body-parser": "*",
     "comicvine-client": "^0.1.0",
     "errorhandler": "^1.3.5",
@@ -94,6 +95,8 @@
       "destination": "build",
       "temporary": "tmp",
       "//": "Directories relative to `source` directory",
+      "subapp":"_sub-apps",
+      "components":"_components",
       "modules": "_modules",
       "layouts": "_layouts",
       "images": "_images",
