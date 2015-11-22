@@ -3,15 +3,37 @@
 
 'use strict';
 
-var $ = require('jquery');
+// Libraries
+var Backbone = require('backbone');
 
-var App = require('./app');
-var MarvelCollection = require('../_modules/marvel/collections/marvelapi-collection');
+var Application = require('./app');
 
 
+// Subapps & high level modules
+var HeaderApp = require('../_modules/header');
+var Homepage = require('../_sub-apps/homepage');
 
-$(function() {
-  console.log("Starting app marvel...");
-  var app = new App();
 
+// Application  level
+var app = new Application();
+var appLayout = app.getAppLayout();
+
+//---------- Adding sub apps
+
+// Module/Header
+app.addSubApp('header', HeaderApp, {
+  container: appLayout.getRegion('header'),
+  title: 'Veggie forest'
 });
+
+// Sub app/market
+app.addSubApp('market', Homepage, {
+  container: appLayout.getRegion('main')
+});
+
+
+
+
+app.start();
+
+Backbone.history.start();

@@ -9,21 +9,13 @@ module.exports = Marionette.ItemView.extend({
 
   className: 'header',
 
-  // ui: {
-  //   backButton: 'go-back'
-  // },
+  initialize: function(options) {
+    this.render();
+  },
 
-  // events: {
-  //   'click @ui.backButton': 'return',
-  // },
-
-  // templateHelpers: function() {
-  //   return {
-  //     title : this.options.title
-  //   }
-  // },
-//  render : function() {
-//    this.$el.html(this.template(this.model));
-//  }
-
+  templateHelpers: {
+    title: function () {
+      return this.options.title;
+    }
+  }
 });

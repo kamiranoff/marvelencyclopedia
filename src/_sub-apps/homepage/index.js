@@ -4,7 +4,7 @@
 var $ = require('jquery');
 var Marionette = require('backbone.marionette');
 var Router = require('./router');
-
+var Radio = require('backbone.radio');
 //require Sub App
 var HomepageView = require('./views/homepage-view');
 //var HomepageModel = require("./models/homepage-model");
@@ -23,11 +23,22 @@ module.exports = Marionette.Object.extend({
   initialize: function(options) {
     this.container = options.container;
     this.layout = new HomepageView();
-
+    this.channel = new Radio.channel('homepage');
     this.router = new Router({
       controller: this
     });
-    this.homepage();
+    //this.showHomepage();
+  },
+
+  showHomepage: function() {
+    console.log('ROUTER - homepage function');
+    this.initData();
+    this.container.show(this.layout);
+
+    this.initViews();
+
+
+    this.fetchData();
   },
 
   /**
@@ -62,15 +73,7 @@ module.exports = Marionette.Object.extend({
     });
   },
 
-  homepage: function() {
-    console.log('ROUTER - homepage function');
-    this.initData();
-    this.initViews();
 
-    $(this.container).html(this.layout.$el);
-
-    this.fetchData();
-  },
 
   initCharcterList: function() {
     console.log('HOMEPAGE - index - initHomepage')

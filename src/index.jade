@@ -2,16 +2,8 @@ extends _layouts/base
 
 block content
   //- h1.title Welcome to the&nbsp;
-  h1.title
-    video.video(autoplay="true",loop="true",muted="true")
-      source(src='images/marvel-intro.webm',type="video/webm")
-      source(src='images/marvel-intro.mp4',type="video/mp4")
-    .overlay
-      a(href="/")
-        span.marvel Marvel
-        |&nbsp;Encyclopedia
-        p.subtitle
-          | With great power comes great responsability
+  main(data-region="app-holder")
+
 
     //- p.
     //-   Take a look at the
