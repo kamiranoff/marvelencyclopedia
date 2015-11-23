@@ -1,29 +1,42 @@
 'use strict';
 
+var $ = require('jquery');
 var Backbone = require('backbone');
 var Marionette = require('backbone.marionette');
 var _ = require('lodash');
-var AppLayout = require('./views/app-layout.js');
+
+
+var LayoutView = require('./views/layout-view');
+
 var Radio = require('backbone.radio');
+var routerChannel = Radio.channel('router');
 
 module.exports = Marionette.Application.extend({
   initialize: function() {
-    this._subApp = [];
-    this.appLayout = new AppLayout();
-    this.channel = new Radio.channel('app');
+    this.$body = $(document.body);
+    this.layout = new LayoutView();
+    this.layout.render();
+
+    this.listenTo(routerChannel, {
+      'before:enter:route': this.onBeforeEnterRoute,
+      'enter:route': this.onEnterRoute,
+      'error:route': this.onErrorRoute
+    });
+  },
+  onBeforeEnterRoute: function() {
+    console.log('Application - onBeforeEnterRoute');
+  },
+
+  onEnterRoute: function() {
+    console.log('Application - onEnterRoute');
+    this.$body.scrollTop(0);
 
   },
 
-  addSubApp: function(name, klass ,options) {
-    _.extend(options, {parentChannel: this.channel });
-    var module = new klass(options);
-
-    this._subApp[name] = module;
-  },
-
-  getAppLayout: function() {
-    return this.appLayout;
+  onErrorRoute: function() {
+    console.log('Application - onErrorRoute');
   }
+
 });
 
 
@@ -55,4 +68,3 @@ var mixinTemplateHelpers = function(target) {
 Backbone.Marionette.ItemView.prototype.mixinTemplateHelpers = mixinTemplateHelpers;
 Backbone.Marionette.CompositeView.prototype.mixinTemplateHelpers = mixinTemplateHelpers;
 Backbone.Marionette.CollectionView.prototype.mixinTemplateHelpers = mixinTemplateHelpers;
-

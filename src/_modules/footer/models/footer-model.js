@@ -2,5 +2,7 @@
 var Backbone = require('backbone');
 
 module.exports = Backbone.Model.extend({
-  defaults: {},
+    defaults:{
+      sample:'Sample Module'
+    }
 });

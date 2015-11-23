@@ -2,5 +2,7 @@
 var Backbone = require('backbone');
 
 module.exports = Backbone.Model.extend({
-    urlRoot: "/marvelapi/characters"
+    defaults:{
+      title:'Single Hero Module'
+    }
 });

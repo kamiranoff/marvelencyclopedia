@@ -5,35 +5,36 @@
 
 // Libraries
 var Backbone = require('backbone');
-
-var Application = require('./app');
-
+var $ = require('jquery');
+Backbone.$ = $;
+var Application = require('./application/application');
 
 // Subapps & high level modules
-var HeaderApp = require('../_modules/header');
-var Homepage = require('../_sub-apps/homepage');
-
+var HeaderService = require('./../_modules/header/service/header-service');
+var IndexRouter = require('./../_sub-apps/homepage/router');
 
 // Application  level
 var app = new Application();
-var appLayout = app.getAppLayout();
+
 
 //---------- Adding sub apps
 
 // Module/Header
-app.addSubApp('header', HeaderApp, {
-  container: appLayout.getRegion('header'),
-  title: 'Veggie forest'
+var headerService = new HeaderService();
+console.log('headerService',app.layout.header);
+headerService.setup({
+  container: app.layout.header
 });
 
-// Sub app/market
-app.addSubApp('market', Homepage, {
-  container: appLayout.getRegion('main')
+// $(document).ajaxError(function () {
+//   FlashesService.add({
+//     type: "danger",
+//     title: "Server Error"
+//   });
+// });
+
+app.index = new IndexRouter({
+  container: app.layout.main
 });
-
-
-
-
-app.start();
 
 Backbone.history.start();

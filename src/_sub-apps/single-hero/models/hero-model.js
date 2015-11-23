@@ -5,8 +5,8 @@ module.exports = Backbone.Model.extend({
   urlRoot: "/marvelapi/character/",
   idAttribute: "_id",
   initialize: function(attributes, options) {
-    console.log('attributes',attributes);
-    console.log('options',options);
+    console.log('SINGLE-HERO MODEL attributes', attributes);
+    console.log('SINGLE-HERO MODEL options', options);
 
   }
 

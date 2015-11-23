@@ -5,11 +5,10 @@ var $ = require('jquery');
 var Marionette = require('backbone.marionette');
 var Router = require('./router');
 var Radio = require('backbone.radio');
+
 //require Sub App
 var HomepageView = require('./views/homepage-view');
-//var HomepageModel = require("./models/homepage-model");
-//var homepageCollection = require('./collections/homepage-collection');
-
+var SingleHero = require('./../single-hero');
 var CharacterInListModel = require('./models/character-in-list-model');
 var CharacterListCollection = require('./collections/character-list-collection');
 
@@ -27,18 +26,19 @@ module.exports = Marionette.Object.extend({
     this.router = new Router({
       controller: this
     });
-    //this.showHomepage();
+    this.showHomepage();
   },
 
   showHomepage: function() {
     console.log('ROUTER - homepage function');
     this.initData();
     this.container.show(this.layout);
-
     this.initViews();
-
-
     this.fetchData();
+  },
+
+  showSingleHero:function(){
+    console.log('singleHero event');
   },
 
   /**

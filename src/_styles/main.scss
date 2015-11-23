@@ -43,11 +43,20 @@
 =            MODULES            =
 ===============================*/
 @import '../_modules/header/sass/header';
+@import '../_modules/footer/sass/footer';
+
+
+/*===============================
+=            Subapps            =
+===============================*/
+@import '../_sub-apps/homepage/sass/homepage';
+
+
+/*=====  End of Subapps  ======*/
+
 
 /*----------  MARVEL  ----------*/
 
-@import '../_modules/marvel/sass/homepage';
-@import '../_modules/marvel/sass/single-page';
 @import '../_modules/characters-list/sass/character';
 
 

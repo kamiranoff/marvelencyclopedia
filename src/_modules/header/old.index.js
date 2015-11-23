@@ -7,6 +7,7 @@ var HeaderView = require('./views/header-view');
 module.exports = Marionette.Object.extend({
 
   initialize: function(options) {
+    console.log('HEADER MODULE - initialize',options);
     this.container = options.container;
     this.initHeader(options);
   },
