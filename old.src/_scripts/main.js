@@ -26,13 +26,6 @@ headerService.setup({
   container: app.layout.header
 });
 
-// $(document).ajaxError(function () {
-//   FlashesService.add({
-//     type: "danger",
-//     title: "Server Error"
-//   });
-// });
-
 app.index = new IndexRouter({
   container: app.layout.main
 });
