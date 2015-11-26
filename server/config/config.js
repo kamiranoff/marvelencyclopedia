@@ -7,6 +7,7 @@ var express = require('express'),
   path = require('path'),
   bodyParser = require('body-parser'),
   morgan = require('morgan'),
+  notifier = require('node-notifier'),
   errorhandler = require('errorhandler');
 
 
@@ -15,7 +16,8 @@ function errorNotification(err, str, req) {
 
   notifier.notify({
     title: title,
-    message: str
+    message: str,
+    sound: true, // Only Notification Center or Windows Toasters
   });
 }
 

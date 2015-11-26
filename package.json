@@ -26,6 +26,7 @@
     "mongodb": "*",
     "mongoose": "*",
     "morgan": "*",
+    "node-notifier": "^4.3.1",
     "node-vibrant": "^1.2.0",
     "normalize.css": "~3.0.1",
     "quantize": "^1.0.1",
