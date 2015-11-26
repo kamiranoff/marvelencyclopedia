@@ -1,0 +1,67 @@
+// Normalize Styles
+
+
+/*==============================
+=            KNACSS            =
+==============================*/
+@import "../../node_modules/knacss/sass/_00-config";
+@import "../../node_modules/knacss/sass/_07-responsive";
+/*=====  End of KNACSS  ======*/
+
+/*===============================
+=            HELPERS            =
+===============================*/
+
+
+@import 'node_modules/normalize.css/normalize';
+@import 'helpers/colors';
+@import 'helpers/media-queries';
+@import 'helpers/mixins';
+/*=====  End of HELPERS  ======*/
+
+
+/*============================
+=            BASE            =
+============================*/
+
+@import 'base/base';
+@import 'base/typography';
+
+/*=====  End of BASE  ======*/
+
+
+/*==============================
+=            layout            =
+==============================*/
+
+
+
+/*=====  End of layout  ======*/
+
+
+/*===============================
+=            MODULES            =
+===============================*/
+//HEADER
+@import '../_modules/header/sass/header';
+@import '../_modules/list-of-heroes/sass/list-of-heroes';
+
+
+/*===============================
+=            Subapps            =
+===============================*/
+
+
+
+/*=====  End of Subapps  ======*/
+
+
+/*----------  MARVEL  ----------*/
+
+
+
+/*----------  END MARVEL  ----------*/
+
+
+
+/*=====  End of MODULES  ======*/
