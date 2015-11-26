@@ -5,7 +5,6 @@ import glob from 'glob';
 import browserify from 'browserify';
 import watchify from 'watchify';
 import envify from 'envify';
-import babelify from 'babelify';
 import _ from 'lodash';
 import vsource from 'vinyl-source-stream';
 import buffer from 'vinyl-buffer';
@@ -24,8 +23,8 @@ export default function(gulp, plugins, args, config, taskTarget, browserSync) {
         entries: [entry],
         debug: true,
         transform: [
-          envify,  // Sets NODE_ENV for better optimization of npm packages
-          babelify // Enable ES6 features
+          envify  // Sets NODE_ENV for better optimization of npm packages
+
         ]
       };
 

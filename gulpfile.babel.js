@@ -45,11 +45,6 @@ gulp.task('build', [
 ]);
 
 
-//gulp.task('nodemon',[
-//  'nodemon'
-//  ]);
-//
-//
 
 // Server tasks with watch
 gulp.task('serve', [
