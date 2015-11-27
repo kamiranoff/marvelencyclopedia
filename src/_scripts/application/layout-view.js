@@ -9,5 +9,8 @@ module.exports = Marionette.LayoutView.extend({
     header: '.application__header',
     content: '.application__content',
     footer: '.application__footer'
-  }
+  },
+  initialize: function() {
+      console.log('APPLICATION layout-view - initialize');
+    },
 });
