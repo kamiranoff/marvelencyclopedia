@@ -7,6 +7,9 @@ var vibrant = require('../../../_scripts/vibrant-custom/vibrant.js');
 module.exports = Marionette.ItemView.extend({
   template: tpl,
   className: 'single-hero-link',
+  modelEvents:{
+    'change':'render'
+  },
   onRender: function() {
     this.$('img').on('load', _.bind(this.onLoad, this));
   },

@@ -1,9 +1,11 @@
 var Marionette = require('backbone.marionette');
 var HeroInListView = require('./hero-in-list-view');
 var NoHeroesView = require('./no-hero-view');
+var tpl = require('./../templates/heroes-composite-tpl.hbs')
 
-module.exports = Marionette.CollectionView.extend({
-  className:'characters-list',
+module.exports = Marionette.CompositeView.extend({
+  template:tpl,
   childView: HeroInListView,
-  emptyView:NoHeroesView
+  childViewContainer: ".characters-list",
+  emptyView: NoHeroesView,
 })
