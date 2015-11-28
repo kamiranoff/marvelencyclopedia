@@ -1,15 +1,17 @@
+'use strict';
+
 var Marionette = require('backbone.marionette');
 
 module.exports = Marionette.AppRouter.extend({
   // "someMethod" must exist at controller.someMethod
+  //
+  initialize:function(options){
+    console.log('APPLICATION ROUTER - initialize',options);
+  },
   appRoutes: {
-    "": "index"
+    "character/:id": "singleHeroPage",
+    "":"homepage"
   },
 
-  index : function(){
-    // do something here.
-    console.log('APPLICATION ROUTER - Initialize');
-
-  }
 
 });

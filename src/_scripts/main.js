@@ -1,17 +1,12 @@
 'use strict';
 
 var Backbone = require('backbone');
-var Marionette = require('backbone.marionette');
 
 var Application = require('./application/application');
+var AppController = require('./application/controller');
+var MyAppRouter = require('./application/router');
 
 var HeaderService = require('./../_modules/header/header-service');
-var listOfHeroesService = require('./../_modules/list-of-heroes/list-of-heroes-service');
-
-// start the marionette inspector
-// if (window.__agent) {
-//   window.__agent.start(Backbone, Marionette);
-// }
 
 var app = new Application();
 
@@ -20,10 +15,17 @@ headerService.setup({
   container: app.layout.header
 });
 
-var listOfHeroesService = new listOfHeroesService();
-listOfHeroesService.setup({
-  container: app.layout.content
+
+app.addInitializer(function(options) {
+  // initialize the router
+  var appController = new AppController({});
+  console.log('MAIN - addInitializer');
+  new MyAppRouter({
+    controller: appController
+  });
 });
 
+// Start Backbone history a necessary step for bookmarkable URL's
 
+app.start({});
 Backbone.history.start();
