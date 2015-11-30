@@ -1,0 +1,12 @@
+.filter-view-container {
+  .search-box {
+    display: block;
+    width: 100%;
+    padding: 1.5rem;
+    background-color: rgba(0, 5, 10,0.9);
+    border: none;
+    box-shadow: 0px -3px 3px rgba(0, 10, 20, 0.1) inset, 0px 3px 3px rgba(0, 10, 20, 0.3) inset;
+    color: $lightgrey;
+    outline: none;
+  }
+}

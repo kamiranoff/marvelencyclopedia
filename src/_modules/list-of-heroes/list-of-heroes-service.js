@@ -15,10 +15,14 @@ module.exports = Service.extend({
     console.log('LIST OF HEROES SERVICE - setup', options);
     this.container = options.container;
     this.start();
+
+
   },
   start: function() {
     console.log('LIST OF HEROES SERVICE - start');
-    this.view = new HomepageView();
+    this.view = new HomepageView({
+      collection: this.listOfHeroesCollection
+    });
     this.container.show(this.view);
 
     this.initData();
@@ -32,26 +36,42 @@ module.exports = Service.extend({
       wait: true,
       reset: true,
       success: function(response) {
-        console.log('success',response);
+        console.log('success', response);
         self.initViews();
+
       }
     });
   },
   initViews: function(options) {
-    this.initListOfHeroesView();
     this.initFilterView(options);
+    this.eventsListener();
+    this.initListOfHeroesView();
   },
 
   initListOfHeroesView: function() {
     this.listOfHeroesView = new ListOfHeroesView({
-      collection: this.listOfHeroesCollection
+      collection: this.listOfHeroesCollection,
+      filteredArray: this.filteredArray
     });
     this.view.getRegion('heroesRegion').show(this.listOfHeroesView.render());
   },
   initFilterView: function() {
-    this.filterView = new FilterView({collection: this.listOfHeroesCollection});
+    this.filterView = new FilterView({
+      collection: this.listOfHeroesCollection
+    });
     this.view.getRegion('filterRegion').show(this.filterView.render());
+
   },
+
+  getFilteredArray: function(filteredArray) {
+    this.filteredArray = filteredArray
+    console.log('this.filteredArray', this.filteredArray);
+    this.initListOfHeroesView();
+  },
+  eventsListener: function() {
+    this.listenTo(this.filterView, 'search:value:changed', this.getFilteredArray);
+
+  }
 
 
 });

@@ -20,7 +20,7 @@ MarvelApi.get('/', function(req, res, next) {
 
   var characterList = Character.find({},'character.thumbnail character.name character.wiki.categories',function(err,characters){
     res.json(characters);
-  }).limit(15);
+  }).limit(600);
 
 });
 

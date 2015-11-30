@@ -1,3 +1,4 @@
+'use strict';
 var Marionette = require('backbone.marionette');
 var _ = require('lodash');
 
@@ -24,7 +25,7 @@ module.exports = Marionette.ItemView.extend({
     var arrayOfNames = [],
       namesInCollection = [];
     for (var i = 0; i < charactersInCollection.length; i++) {
-      namesInCollection = _.pick(charactersInCollection[i], 'name')
+      namesInCollection = _.pick(charactersInCollection[i], 'name');
       namesInCollection = _.values(namesInCollection);
       arrayOfNames.push(namesInCollection[0]);
     }
@@ -33,16 +34,26 @@ module.exports = Marionette.ItemView.extend({
   },
 
   getTextFromUser: function() {
-    var userInput = this.ui.searchBox.val().toLowerCase();
-    var filterArrayOfNames = []
-    arrayOfNames = this.arrayOfNames;
+    this.filterArrayOfNames = [];
+    var self = this;
+    var userInput = this.ui.searchBox.val().toLowerCase().trim();
+    var arrayOfNames = this.arrayOfNames;
+
     for (var i = 0; i < arrayOfNames.length; i++) {
       if (
         arrayOfNames[i].toLowerCase().indexOf(userInput) > -1 === true
       ) {
-        filterArrayOfNames.push(arrayOfNames[i].toLowerCase());
+        self.filterArrayOfNames.push(arrayOfNames[i].toLowerCase());
       }
+
     }
-    console.log('filterArrayOfNames', filterArrayOfNames);
+    setTimeout(function() {
+      self.emitSearchValueChanged()
+    }, 200);
+  },
+  emitSearchValueChanged: function() {
+    //console.log('filterArrayOfNames', this.filterArrayOfNames);
+    this.trigger('search:value:changed', this.filterArrayOfNames);
+
   }
 });
