@@ -1,8 +1,15 @@
 'use strict';
 var Marionette = require('backbone.marionette');
-var _ = require('lodash');
 
 var tpl = require('./../templates/filter-tpl.hbs');
+
+var delay = (function() {
+  var timer = 0;
+  return function(callback, ms) {
+    clearTimeout(timer);
+    timer = setTimeout(callback, ms);
+  };
+})();
 
 module.exports = Marionette.ItemView.extend({
   template: tpl,
@@ -11,49 +18,31 @@ module.exports = Marionette.ItemView.extend({
     searchBox: '.search-box'
   },
   events: {
-    'input @ui.searchBox': "getTextFromUser"
+    'input @ui.searchBox': "catchInputEvent"
   },
   initialize: function() {
     console.log('Filter View - initialize');
   },
   collectionEvents: {
-    'sync': 'getAllCharsName'
+    'sync': 'getAllChars'
   },
-  getAllCharsName: function() {
-    console.log('getAllCharsName this.$el', this.collection);
-    var charactersInCollection = this.collection.pluck("character");
-    var arrayOfNames = [],
-      namesInCollection = [];
-    for (var i = 0; i < charactersInCollection.length; i++) {
-      namesInCollection = _.pick(charactersInCollection[i], 'name');
-      namesInCollection = _.values(namesInCollection);
-      arrayOfNames.push(namesInCollection[0]);
-    }
-    console.log('arrayOfNames', arrayOfNames);
-    this.arrayOfNames = arrayOfNames;
+
+  catchInputEvent: function() {
+    //typing helper
+    var self = this;
+    delay(function() {
+      self.getTextFromUser();
+    }, 800);
   },
 
   getTextFromUser: function() {
-    this.filterArrayOfNames = [];
-    var self = this;
     var userInput = this.ui.searchBox.val().toLowerCase().trim();
-    var arrayOfNames = this.arrayOfNames;
-
-    for (var i = 0; i < arrayOfNames.length; i++) {
-      if (
-        arrayOfNames[i].toLowerCase().indexOf(userInput) > -1 === true
-      ) {
-        self.filterArrayOfNames.push(arrayOfNames[i].toLowerCase());
-      }
-
-    }
-    setTimeout(function() {
-      self.emitSearchValueChanged()
-    }, 200);
+    this.emitSearchValueChanged(userInput);
   },
-  emitSearchValueChanged: function() {
-    //console.log('filterArrayOfNames', this.filterArrayOfNames);
-    this.trigger('search:value:changed', this.filterArrayOfNames);
 
-  }
+  emitSearchValueChanged: function(string) {
+    this.trigger('search:value:changed', string);
+  },
+
+
 });

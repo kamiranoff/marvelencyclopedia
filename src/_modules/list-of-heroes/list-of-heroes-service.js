@@ -1,7 +1,7 @@
 'use strict';
 
 var Service = require('backbone.service');
-
+var _ = require('lodash');
 var HomepageView = require('./views/homepage-view');
 
 var ListOfHeroesCollection = require('./collections/list-of-heroes-collection');
@@ -12,14 +12,12 @@ var FilterView = require('./../filter/views/filter-view');
 module.exports = Service.extend({
 
   setup: function(options) {
-    console.log('LIST OF HEROES SERVICE - setup', options);
     this.container = options.container;
     this.start();
 
 
   },
   start: function() {
-    console.log('LIST OF HEROES SERVICE - start');
     this.view = new HomepageView({
       collection: this.listOfHeroesCollection
     });
@@ -36,40 +34,39 @@ module.exports = Service.extend({
       wait: true,
       reset: true,
       success: function(response) {
-        console.log('success', response);
-        self.initViews();
-
+       // self.initViews();
+        self.initialModelsInCollection = response.models;
       }
     });
   },
   initViews: function(options) {
     this.initFilterView(options);
-    this.eventsListener();
     this.initListOfHeroesView();
+    this.eventsListener();
   },
 
   initListOfHeroesView: function() {
     this.listOfHeroesView = new ListOfHeroesView({
-      collection: this.listOfHeroesCollection,
-      filteredArray: this.filteredArray
+      collection: this.listOfHeroesCollection
     });
     this.view.getRegion('heroesRegion').show(this.listOfHeroesView.render());
   },
   initFilterView: function() {
-    this.filterView = new FilterView({
-      collection: this.listOfHeroesCollection
-    });
+    this.filterView = new FilterView();
     this.view.getRegion('filterRegion').show(this.filterView.render());
 
   },
 
-  getFilteredArray: function(filteredArray) {
-    this.filteredArray = filteredArray
-    console.log('this.filteredArray', this.filteredArray);
-    this.initListOfHeroesView();
+  getFilteredCollection: function(userInput) {
+    this.listOfHeroesCollection.reset(this.initialModelsInCollection);
+    var filteredCollection = _.filter(this.listOfHeroesCollection.models,function(item){
+      return item.get('character').name.toLowerCase().indexOf(userInput) !== -1;
+    });
+    console.log('filteredCollection',filteredCollection);
+    this.listOfHeroesCollection.reset(filteredCollection);
   },
   eventsListener: function() {
-    this.listenTo(this.filterView, 'search:value:changed', this.getFilteredArray);
+    this.listenTo(this.filterView, 'search:value:changed', this.getFilteredCollection);
 
   }
 

@@ -8,6 +8,7 @@ import pjson from './package.json';
 import minimist from 'minimist';
 import wrench from 'wrench';
 
+global.appRoot = path.resolve(__dirname);
 // Load all gulp plugins based on their names
 // EX: gulp-copy -> copy
 const plugins = gulpLoadPlugins();
