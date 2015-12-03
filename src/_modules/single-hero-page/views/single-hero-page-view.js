@@ -11,17 +11,18 @@ module.exports = Marionette.ItemView.extend({
   },
   modelEvents: {
     'change': 'render',
-    'sync':'initParallaxBg'
+    'sync': 'initParallaxBg'
   },
-
 
   setParallaxBg: function() {
     var parallax = $('.hero-name')[0];
-    var speed = -0.3;
+    $('.hero-name').css({'transition':'.7s all ease-out'});
+    var speed = -0.2;
     window.onscroll = function() {
       var yOffset = window.pageYOffset;
       var percentOffset = 30 - (yOffset / speed) / 100;
       parallax.style.backgroundPosition = "0px " + percentOffset + "%";
+
     };
   },
   initParallaxBg: function() {
