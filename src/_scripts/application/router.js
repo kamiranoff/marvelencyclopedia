@@ -10,6 +10,7 @@ module.exports = Marionette.AppRouter.extend({
   },
   appRoutes: {
     "character/:id": "singleHeroPage",
+    "character/:name": "singleHeroPageByName",
     "":"homepage"
   },
 

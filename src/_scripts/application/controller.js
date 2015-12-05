@@ -40,5 +40,16 @@ module.exports = Marionette.Object.extend({
       container: layout.content,
       id: id
     });
+  },
+  singleHeroPageByName: function(name) {
+    console.log('APPLICATION CONTROLLER - SINGLE HERO PAGE - Initialize name: ', name);
+    var layout = this.getOption('layout');
+    console.log('APPLICATION CONTROLLER - SINGLE HERO PAGE - Initialize - layout: ');
+    layout.header.$el.addClass('small-header');
+    var singeHeroPage = new SingleHeroPage();
+    singleHeroPage.setup({
+      container: layout.content,
+      name: name
+    });
   }
 });
