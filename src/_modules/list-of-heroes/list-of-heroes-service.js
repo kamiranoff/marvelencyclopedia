@@ -40,9 +40,9 @@ module.exports = Service.extend({
 
   },
   initFilter: function() {
-    console.log(' this.listOfTeamsCollection', this.listOfTeamsCollection);
     this.initFilterView();
   },
+
   initListOfHeroes: function() {
     var self = this;
 
@@ -51,7 +51,6 @@ module.exports = Service.extend({
       success: function(response) {
         // self.initViews();
         self.initialModelsInCollection = response.models;
-        self.listOfTeamsCollection = self.getListOfTeams();
         self.initFilter();
       }
     });
@@ -78,32 +77,66 @@ module.exports = Service.extend({
   },
 
   initFilterView: function() {
+    this.filterCollection = new FilterCollection([{
+        'categories': 'Heroes'
+      }, {
+        'categories': 'Villains'
+      }, {
+        'categories': 'Women'
+      }, {
+        'categories': 'Men'
+      }]
+
+    );
     this.filterView = new FilterView({
-      collection: new FilterCollection(this.listOfTeamsCollection)
+      collection: this.filterCollection
     });
     this.view.getRegion('filterRegion').show(this.filterView.render());
 
   },
 
-  getListOfTeams: function() {
-    var listOfTeams = [];
+  // getListOfTeams: function() {
+  //   var listOfTeams = [];
 
-    var listOfTeamsCollection = _.filter(this.listOfHeroesCollection.models, function(item) {
-      if (typeof(item.get('character').wiki) !== 'undefined') {
-        if (typeof(item.get('character').wiki.groups) !== 'undefined') {
-          listOfTeams.push(item.get('character').wiki.groups.replace(/\[\[(.+?)\]\]/g, '$1').split(","));
-        }
-      }
-    });
-    listOfTeams = [].concat.apply([], listOfTeams);
-    listOfTeams = _.uniq(listOfTeams.map(Function.prototype.call, String.prototype.trim));
-    var listOfTeamsModel = [];
-    for(var i = 0;i < listOfTeams.length;i++){
-      listOfTeamsModel.push({'team':listOfTeams[i]});
-    }
-    return listOfTeamsModel;
-  },
+  //   var listOfTeamsCollection = _.filter(this.listOfHeroesCollection.models, function(item) {
+  //     if (typeof(item.get('character').wiki) !== 'undefined') {
+  //       if (typeof(item.get('character').wiki.groups) !== 'undefined') {
+  //         listOfTeams.push(item.get('character').wiki.groups.replace(/\[\[(.+?)\]\]/g, '$1').split(","));
+  //       }
+  //     }
+  //   });
+  //   listOfTeams = [].concat.apply([], listOfTeams);
+  //   listOfTeams = _.uniq(listOfTeams.map(Function.prototype.call, String.prototype.trim));
+  //   var listOfTeamsModel = [];
+  //   for(var i = 0;i < listOfTeams.length;i++){
+  //     listOfTeamsModel.push({'team':listOfTeams[i]});
+  //   }
+  //   return listOfTeamsModel;
+  // },
 
+  // getListOfCategories: function() {
+  //   var listOfTeams = [];
+  //   var listOfTeamsModel = [];
+  //   var listOfCategories = _.filter(this.listOfHeroesCollection.models, function(item) {
+  //     if (typeof(item.get('character').wiki) !== 'undefined') {
+  //       if (typeof(item.get('character').wiki.categories) !== 'undefined' && item.get('character').wiki.categories !== null) {
+
+  //         listOfTeams.push(item.get('character').wiki.categories);
+  //         listOfTeams = [].concat.apply([], listOfTeams);
+  //         listOfTeams = _.uniq(listOfTeams.map(Function.prototype.call, String.prototype.trim));
+  //         console.log('listOfTeams', listOfTeams);
+  //       }
+  //     }
+  //   });
+
+  //   for (var i = 0; i < listOfTeams.length; i++) {
+  //     listOfTeamsModel.push({
+  //       'categories': listOfTeams[i]
+  //     });
+  //   }
+  //   console.log('listOfTeamsModel',listOfTeamsModel);
+  //   return listOfTeamsModel;
+  // },
   getSearchedCollection: function(userInput) {
     var self = this;
     this.listOfHeroesCollection.reset(this.initialModelsInCollection);
@@ -119,9 +152,8 @@ module.exports = Service.extend({
 
 
   },
-  getFilteredCollection: function(userChoice) {
-
-
+  getFilteredCollection:function(array){
+    console.log('getFilteredCollection array',array);
   },
 
   eventsListener: function() {
