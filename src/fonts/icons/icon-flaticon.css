@@ -37,4 +37,8 @@
 
 .flaticon-avengers:before { content: "\EA01" }
 .flaticon-plus:before { content: "\EA02" }
-.flaticon-iron-man:before { content: "\EA03" }
+.flaticon-heroes:before { content: "\EA03" }
+.flaticon-iron-man:before { content: "\EA04" }
+.flaticon-men:before { content: "\EA05" }
+.flaticon-villains:before { content: "\EA06" }
+.flaticon-women:before { content: "\EA07" }

@@ -7,8 +7,10 @@ var HomepageView = require('./views/homepage-view');
 var ListOfHeroesCollection = require('./collections/list-of-heroes-collection');
 var ListOfHeroesView = require('./views/list-of-heroes-view');
 
+var SearchView = require('./../search/views/search-view');
+var SearchModel = require('./../search/models/search-model');
 var FilterView = require('./../filter/views/filter-view');
-var FilterModel = require('./../filter/models/filter-model');
+var FilterCollection = require('./../filter/collections/filter-collection');
 module.exports = Service.extend({
 
   setup: function(options) {
@@ -21,22 +23,28 @@ module.exports = Service.extend({
     });
     this.container.show(this.view);
 
+    this.initSearch();
     this.initFilter();
     this.initListOfHeroes();
     this.initEventListener();
   },
-  initFilter: function(options) {
-    var self= this;
-    this.filterModel = new FilterModel({
+
+  initSearch: function(options) {
+    var self = this;
+    this.searchModel = new SearchModel({
       loading: true
     });
-    this.initFilterView(options);
+    this.initSearchView(options);
     window.onload = function() {
       // this will fire after the entire page is loaded, including images
-       self.filterModel.set('loading', false);
+      self.searchModel.set('loading', false);
     };
 
   },
+  initFilter: function() {
+    this.initFilterView();
+  },
+
   initListOfHeroes: function() {
     var self = this;
 
@@ -45,15 +53,10 @@ module.exports = Service.extend({
       success: function(response) {
         // self.initViews();
         self.initialModelsInCollection = response.models;
-
       }
     });
     this.initListOfHeroesView();
 
-  },
-  initEventListener: function() {
-
-    this.eventsListener();
   },
 
   initListOfHeroesView: function() {
@@ -62,31 +65,78 @@ module.exports = Service.extend({
     });
     this.view.getRegion('heroesRegion').show(this.listOfHeroesView.render());
   },
+
+  initSearchView: function() {
+    this.searchView = new SearchView({
+      model: this.searchModel
+    });
+    this.view.getRegion('searchRegion').show(this.searchView.render());
+
+  },
+
   initFilterView: function() {
+    this.filterCollection = new FilterCollection([{
+        'categories': 'Heroes',
+        'selected':false
+      }, {
+        'categories': 'Villains',
+        'selected':false
+      }, {
+        'categories': 'Women',
+        'selected':false
+      }, {
+        'categories': 'Men',
+        'selected':false
+      }]
+
+    );
     this.filterView = new FilterView({
-      model: this.filterModel
+      collection: this.filterCollection
     });
     this.view.getRegion('filterRegion').show(this.filterView.render());
 
   },
 
-  getFilteredCollection: function(userInput) {
+  getSearchedCollection: function(userInput) {
     var self = this;
     this.listOfHeroesCollection.reset(this.initialModelsInCollection);
-    var filteredCollection = _.filter(this.listOfHeroesCollection.models, function(item) {
+    var searchedCollection = _.filter(this.listOfHeroesCollection.models, function(item) {
       return item.get('character').name.toLowerCase().indexOf(userInput) !== -1;
     });
-
-    console.log('this.filterModel', this.filterModel);
-    this.listOfHeroesCollection.reset(filteredCollection);
+    this.listOfHeroesCollection.reset(searchedCollection);
     setTimeout(function() {
-      self.filterModel.set('loading', false);
+      self.searchModel.set('loading', false);
     }, 100);
 
-
   },
-  eventsListener: function() {
-    this.listenTo(this.filterView, 'search:value:changed', this.getFilteredCollection);
+
+  getFilteredCollection: function() {
+    this.listOfHeroesCollection.reset(this.initialModelsInCollection);
+    console.log(this.listOfHeroesCollection);
+    var filteredFilterCollection = _.pluck(_.pluck(_.filter(this.filterCollection.models,function(item){
+      return item.attributes.selected;
+    },true),'attributes'),'categories');
+
+    var filteredListOfHeroesCollection = _.filter(this.listOfHeroesCollection.models,function(item){
+      try{
+        if(_.intersection(item.attributes.character.wiki.categories,filteredFilterCollection).length > 0){
+          return item;
+        }
+      }catch(e){
+        console.log(e);
+      }
+    });
+
+    if(filteredListOfHeroesCollection.length >0){
+      this.listOfHeroesCollection.reset(filteredListOfHeroesCollection);
+    }else{
+      this.listOfHeroesCollection.reset(this.initialModelsInCollection);
+    }
+  },
+
+  initEventListener: function() {
+    this.listenTo(this.filterView, 'childview:filter:value:changed', this.getFilteredCollection);
+    this.listenTo(this.searchView, 'search:value:changed', this.getSearchedCollection);
 
   }
 
