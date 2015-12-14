@@ -51,7 +51,7 @@ module.exports = function(app, configEnv) {
   app.set('view engine', 'jade'); //set the view engine
 
   // replace the default view folder by the folder defined as the second argument
-  app.set('views', configEnv.rootPath + '/server/views');
+  app.set('views', configEnv.rootPath + '/old.server/views');
 
   //bodyParser Middleware
   app.use(bodyParser.urlencoded({
@@ -71,7 +71,7 @@ module.exports = function(app, configEnv) {
   =======================================================*/
 
   //exemeple with the file.txt from the public/ folder
-  //serve files to the server from the specified directory
+  //serve files to the old.server from the specified directory
   //
   //optional first parameters.
   app.use('/assets', express.static(path.join(configEnv.rootPath, 'client')));

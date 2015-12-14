@@ -15,7 +15,10 @@ export default function(gulp, plugins, args, config, taskTarget, browserSync) {
 
     return nodemon({
       script: './server/server.js',
-      watch: ['./server/server.js','server/']
+      watch: ['server/'],
+      nodeArgs: ['--debug=3010'],
+      debug:true
+
     }).on('start', function() {
       // to avoid nodemon being started multiple times
       // thanks @matthisk
