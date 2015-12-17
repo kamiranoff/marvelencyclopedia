@@ -50,9 +50,10 @@ module.exports = Service.extend({
 
     this.listOfHeroesCollection = new ListOfHeroesCollection();
     this.listOfHeroesCollection.fetch({
+      reset:true,
       success: function(response) {
         // self.initViews();
-        self.initialModelsInCollection = response.models;
+        self.initialListOfHeroesCollectionModels = response.models;
       }
     });
     this.initListOfHeroesView();
@@ -77,16 +78,16 @@ module.exports = Service.extend({
   initFilterView: function() {
     this.filterCollection = new FilterCollection([{
         'categories': 'Heroes',
-        'selected':false
+        'selected': false
       }, {
         'categories': 'Villains',
-        'selected':false
+        'selected': false
       }, {
         'categories': 'Women',
-        'selected':false
+        'selected': false
       }, {
         'categories': 'Men',
-        'selected':false
+        'selected': false
       }]
 
     );
@@ -97,9 +98,10 @@ module.exports = Service.extend({
 
   },
 
-  getSearchedCollection: function(userInput) {
+  filterCollectionFromSearch: function(userInput) {
     var self = this;
-    this.listOfHeroesCollection.reset(this.initialModelsInCollection);
+
+    this.listOfHeroesCollection.reset(this.initialListOfHeroesCollectionModels);
     var searchedCollection = _.filter(this.listOfHeroesCollection.models, function(item) {
       return item.get('character').name.toLowerCase().indexOf(userInput) !== -1;
     });
@@ -110,35 +112,39 @@ module.exports = Service.extend({
 
   },
 
-  getFilteredCollection: function() {
-    this.listOfHeroesCollection.reset(this.initialModelsInCollection);
-    console.log(this.listOfHeroesCollection);
-    var filteredFilterCollection = _.pluck(_.pluck(_.filter(this.filterCollection.models,function(item){
-      return item.attributes.selected;
-    },true),'attributes'),'categories');
+  isDisplayedWithFilter: function(model) {
+    var result = false,categoriesFromModel = [];
 
-    var filteredListOfHeroesCollection = _.filter(this.listOfHeroesCollection.models,function(item){
-      try{
-        if(_.intersection(item.attributes.character.wiki.categories,filteredFilterCollection).length > 0){
-          return item;
-        }
-      }catch(e){
-        console.log(e);
+    this.filterCollection.models.forEach(function(filter) {
+      try {
+        categoriesFromModel = model.get('character').wiki.categories;
+      } catch (e) {
+        console.log('Error', e);
+      }
+      if (filter.get('selected') === true && _.contains(categoriesFromModel, filter.get('categories')) === true) {
+        result = true;
+        return;
       }
     });
+    return result;
+  },
 
-    if(filteredListOfHeroesCollection.length >0){
-      this.listOfHeroesCollection.reset(filteredListOfHeroesCollection);
-    }else{
-      this.listOfHeroesCollection.reset(this.initialModelsInCollection);
-    }
+
+  filterCollectionFromFilter: function() {
+    var filteredCollection = this.listOfHeroesCollection.chain()
+      .filter(_.bind(this.isDisplayedWithFilter, this))
+      .value();
+    console.log('filteredCollection', filteredCollection);
+     this.listOfHeroesCollection.reset(filteredCollection);
   },
 
   initEventListener: function() {
-    this.listenTo(this.filterView, 'childview:filter:value:changed', this.getFilteredCollection);
-    this.listenTo(this.searchView, 'search:value:changed', this.getSearchedCollection);
+   this.listenTo(this.filterView, 'childview:filter:value:changed', this.filterCollectionFromFilter);
+    this.listenTo(this.searchView, 'search:value:changed', this.filterCollectionFromSearch);
 
   }
 
 
 });
+
+// marvelCollectionView(filterCollection)

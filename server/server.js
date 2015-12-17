@@ -72,16 +72,6 @@ require('./routes/routes')(app);
 require('./routes/errors')(app);
 /*-----  End of ROUTES  ------*/
 
-/*============================
-=            CHAT            =
-============================*/
-
-require('./chat/chatController.js')(env, logger);
-
-
-
-
-/*-----  End of CHAT  ------*/
 
 
 /*==============================
