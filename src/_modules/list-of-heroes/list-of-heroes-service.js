@@ -53,7 +53,7 @@ module.exports = Service.extend({
       reset:true,
       success: function(response) {
         // self.initViews();
-        self.initialListOfHeroesCollectionModels = response.models;
+        self.initialListOfHeroesCollection = new ListOfHeroesCollection(response.models);
       }
     });
     this.initListOfHeroesView();
@@ -86,7 +86,7 @@ module.exports = Service.extend({
         'categories': 'Women',
         'selected': false
       }, {
-        'categories': 'Men',
+        'categories': 'X-Men',
         'selected': false
       }]
 
@@ -101,7 +101,7 @@ module.exports = Service.extend({
   filterCollectionFromSearch: function(userInput) {
     var self = this;
 
-    this.listOfHeroesCollection.reset(this.initialListOfHeroesCollectionModels);
+    this.listOfHeroesCollection.reset(this.initialListOfHeroesCollection.models);
     var searchedCollection = _.filter(this.listOfHeroesCollection.models, function(item) {
       return item.get('character').name.toLowerCase().indexOf(userInput) !== -1;
     });
@@ -131,11 +131,14 @@ module.exports = Service.extend({
 
 
   filterCollectionFromFilter: function() {
-    var filteredCollection = this.listOfHeroesCollection.chain()
+    var filteredCollection = this.initialListOfHeroesCollection.chain()
       .filter(_.bind(this.isDisplayedWithFilter, this))
       .value();
     console.log('filteredCollection', filteredCollection);
      this.listOfHeroesCollection.reset(filteredCollection);
+     if(filteredCollection.length === 0){
+      this.listOfHeroesCollection.reset(this.initialListOfHeroesCollection.models);
+     }
   },
 
   initEventListener: function() {
