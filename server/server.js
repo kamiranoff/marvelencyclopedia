@@ -1,3 +1,4 @@
+"use strict";
 /**
  *
  * Server.js
@@ -10,7 +11,7 @@
 ===============================*/
 /*==========  Application settings  ==========*/
 // ./ points to the root folder
-
+console.log('starting server');
 var express = require('express'),
     app = express();
 

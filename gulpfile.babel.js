@@ -49,7 +49,7 @@ gulp.task('build', [
 
 // Server tasks with watch
 gulp.task('serve', [
-  //'nodemon',
+  'nodemon',
   'imagemin',
   'copy',
   'jade',
